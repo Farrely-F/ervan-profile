@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Two profiles
 
-## Getting Started
+A static double profile for **Irvan Baihaqi** (IT Infrastructure Engineer) and
+**Enrico Dwidhanto Indrawan** (Back End Developer), presented as two worlds
+separated by a glowing diagonal rift.
 
-First, run the development server:
+- `/` — choose a profile; the seam leans toward whichever side the pointer is on
+- `/irvan` — The Grid: neon, chamfered HUD, a shell session as résumé
+- `/enrico` — The Green March: engraved codex, an API console as résumé
+
+## Running it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build && npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin, used for `metadataBase`, canonicals, OG image URLs, `sitemap.xml`, `robots.txt` and `llms-full.txt`. Set it in production (`https://your-domain`) or those files will point at `localhost:3000`. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content rules
 
-## Learn More
+Every professional fact on these pages is transcribed from the subject's own
+LinkedIn profile export (`docs/*.md`, exported ~2026-10). Nothing is inferred:
+no tools, employers, projects or metrics beyond those documents, and durations
+and "Present" end dates are as reported. Where the source is missing something
+— Enrico's email, the dates of Irvan's vocational school — the page says so
+rather than filling the gap.
 
-To learn more about Next.js, take a look at the following resources:
+The two worlds, their names, artwork and voice lines are invented presentation
+and make no factual claim about either subject. `/llms.txt` and
+`/llms-full.txt` state this explicitly for machine readers, since provenance is
+what keeps an automated summary from embellishing.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How it is put together
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+  app/
+    layout.tsx            fonts, metadata, WebSite JSON-LD, rift overlay
+    page.tsx              the choose screen
+    irvan/ enrico/        profile pages + per-route OG/Twitter images
+    robots.ts sitemap.ts manifest.ts
+    icon.svg icon.png apple-icon.png favicon.ico   (rasterised from icon.svg)
+    llms-full.txt/route.ts  plain-text transcript of both profiles
+  components/
+    rift/                 WebGL field, seam line, transition, world sync
+    story/                reveal/parallax primitives, chronicle rail, chapter spine
+    role/                 role-native artefacts (shell session, JSON console, Go literal)
+    worlds/               the two art scenes and sigils
+    ui/                   shadcn primitives + the guarded Panel
+  data/profiles.ts        the only source of truth for page content
+  lib/seam.ts             the one seam equation, shared by shader and DOM
+  lib/seo.tsx             metadata + schema.org builders
+  lib/og.tsx              satori social cards (fonts vendored in lib/fonts)
+```
 
-## Deploy on Vercel
+### The seam is one equation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`lib/seam.ts` defines the boundary in screen space:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+sin(θ)·(u − 0.5) + cos(θ)·(v − 0.5) = offset
+```
+
+The WebGL shader receives it as a uniform, the chooser's `clip-path` polygons
+and the crisp `SeamLine` solve it in JS. That is why the glowing edge and the
+world boundary never drift apart, even while scrolling moves the seam.
+
+### Performance
+
+The page is built to stay smooth on integrated graphics:
+
+- the WebGL field rasterises below CSS resolution (≈0.55×) at 30 fps, with
+  3-octave noise and one shard draw call;
+- it measures real frame gaps and walks a quality ladder down on its own,
+  ending at a slow drift plus `html[data-perf="low"]`, which also stops the art
+  scenes' lamp/ember animations;
+- no `backdrop-filter` anywhere, no full-screen blend modes;
+- the art scenes pause their ~250 animated SVG nodes when out of view
+  (`ArtGate`), and the heavy crossover block is skipped entirely off-screen
+  (`content-visibility`);
+- `prefers-reduced-motion` renders a single static field frame, drops the
+  pinned filmstrip into a plain list, and skips the navigation wipe.
+
+### SEO and machine readability
+
+Server-rendered HTML for all content, per-route `opengraph-image`/`twitter-image`
+(satori, 1200×630), `robots.txt` (explicitly allowing major AI crawlers),
+`sitemap.xml` with image entries, a web manifest, four icon formats, and
+schema.org `WebSite` + `ItemList` on `/` with `ProfilePage` + `Person` on each
+profile (occupation, employer, skills, credentials, alumni).

@@ -1,26 +1,502 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+
+/* Extra stop below Tailwind's sm: 640px, for the HUD chips. */
+@theme {
+  --breakpoint-xs: 26rem;
 }
+
+/* ------------------------------------------------------------------ *
+ * THE RIFT — theme layer
+ * Every surface lives inside a world scope: [data-world="irvan"]
+ * (neon grid) or [data-world="enrico"] (the green march). shadcn
+ * semantic tokens are redefined per world, so every shadcn primitive
+ * inherits the world it is rendered in.
+ * ------------------------------------------------------------------ */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  /* rift-only tokens */
+  --color-rift-a: var(--rift-a);
+  --color-rift-b: var(--rift-b);
+  --color-rift-c: var(--rift-c);
+  --color-void: var(--void);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Neutral "rift void" — the space between worlds (chooser chrome). */
+:root {
+  --background: oklch(0.11 0.03 268);
+  --foreground: oklch(0.97 0.012 220);
+  --card: oklch(0.16 0.035 268);
+  --card-foreground: oklch(0.97 0.012 220);
+  --popover: oklch(0.14 0.035 268);
+  --popover-foreground: oklch(0.97 0.012 220);
+  --primary: oklch(0.88 0.04 230);
+  --primary-foreground: oklch(0.14 0.035 268);
+  --secondary: oklch(0.24 0.04 268);
+  --secondary-foreground: oklch(0.97 0.012 220);
+  --muted: oklch(0.22 0.035 268);
+  --muted-foreground: oklch(0.72 0.03 240);
+  --accent: oklch(0.3 0.05 268);
+  --accent-foreground: oklch(0.97 0.012 220);
+  --destructive: oklch(0.7 0.19 25);
+  --border: oklch(0.9 0.03 240 / 16%);
+  --input: oklch(0.9 0.03 240 / 20%);
+  --ring: oklch(0.88 0.06 230 / 60%);
+  --chart-1: oklch(0.82 0.16 195);
+  --chart-2: oklch(0.66 0.24 325);
+  --chart-3: oklch(0.72 0.19 285);
+  --chart-4: oklch(0.85 0.15 88);
+  --chart-5: oklch(0.75 0.15 150);
+  --radius: 0.375rem;
+  --rift-a: oklch(0.84 0.15 205);
+  --rift-b: oklch(0.68 0.24 330);
+  --rift-c: oklch(0.86 0.14 88);
+  --void: oklch(0.06 0.025 268);
+  --font-display: var(--font-chakra);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+  --chamfer: 16px;
+}
+
+/* ---- World A: IRVAN — THE GRID (neon, chamfered, hairline HUD) ---- */
+[data-world="irvan"] {
+  color-scheme: dark;
+  --background: oklch(0.125 0.038 266);
+  --foreground: oklch(0.965 0.018 218);
+  --card: oklch(0.185 0.045 266);
+  --card-foreground: oklch(0.965 0.018 218);
+  --popover: oklch(0.165 0.045 266);
+  --popover-foreground: oklch(0.965 0.018 218);
+  --primary: oklch(0.83 0.155 196);
+  --primary-foreground: oklch(0.15 0.05 255);
+  --secondary: oklch(0.26 0.05 268);
+  --secondary-foreground: oklch(0.965 0.018 218);
+  --muted: oklch(0.235 0.045 268);
+  --muted-foreground: oklch(0.735 0.055 225);
+  --accent: oklch(0.68 0.235 326);
+  --accent-foreground: oklch(0.98 0.015 326);
+  --destructive: oklch(0.7 0.2 22);
+  --border: oklch(0.83 0.155 196 / 22%);
+  --input: oklch(0.83 0.155 196 / 26%);
+  --ring: oklch(0.83 0.155 196 / 65%);
+  --chart-1: oklch(0.83 0.155 196);
+  --chart-2: oklch(0.68 0.235 326);
+  --chart-3: oklch(0.72 0.19 285);
+  --chart-4: oklch(0.88 0.12 175);
+  --chart-5: oklch(0.6 0.2 300);
+  --radius: 0.25rem;
+  --rift-a: oklch(0.86 0.15 196);
+  --rift-b: oklch(0.68 0.245 328);
+  --rift-c: oklch(0.74 0.19 288);
+  --void: oklch(0.075 0.032 266);
+  --font-display: var(--font-chakra);
+  --chamfer: 18px;
+}
+
+/* ---- World B: ENRICO — THE GREEN MARCH (codex, engraved, warm) ---- */
+[data-world="enrico"] {
+  color-scheme: dark;
+  --background: oklch(0.175 0.028 68);
+  --foreground: oklch(0.955 0.022 88);
+  --card: oklch(0.225 0.032 68);
+  --card-foreground: oklch(0.955 0.022 88);
+  --popover: oklch(0.205 0.032 68);
+  --popover-foreground: oklch(0.955 0.022 88);
+  --primary: oklch(0.845 0.14 86);
+  --primary-foreground: oklch(0.2 0.035 62);
+  --secondary: oklch(0.28 0.036 72);
+  --secondary-foreground: oklch(0.955 0.022 88);
+  --muted: oklch(0.255 0.032 70);
+  --muted-foreground: oklch(0.77 0.045 86);
+  --accent: oklch(0.72 0.13 155);
+  --accent-foreground: oklch(0.16 0.03 155);
+  --destructive: oklch(0.68 0.19 30);
+  --border: oklch(0.845 0.14 86 / 24%);
+  --input: oklch(0.845 0.14 86 / 28%);
+  --ring: oklch(0.845 0.14 86 / 62%);
+  --chart-1: oklch(0.845 0.14 86);
+  --chart-2: oklch(0.72 0.13 155);
+  --chart-3: oklch(0.68 0.12 45);
+  --chart-4: oklch(0.8 0.09 105);
+  --chart-5: oklch(0.62 0.1 140);
+  --radius: 1.1rem;
+  --rift-a: oklch(0.87 0.145 88);
+  --rift-b: oklch(0.75 0.15 152);
+  --rift-c: oklch(0.7 0.13 42);
+  --void: oklch(0.13 0.03 58);
+  --font-display: var(--font-cinzel);
+  --chamfer: 4px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    background-color: var(--void);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--rift-a) 40%, transparent);
+    color: var(--foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--rift-a);
+    outline-offset: 3px;
+  }
+  /* The scrollbar is a seam. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--rift-a) 70%, transparent) var(--void);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      var(--rift-a),
+      var(--rift-b) 55%,
+      var(--rift-c)
+    );
+    border-radius: 99px;
+    border: 2px solid var(--void);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* --- Shared mood layers --------------------------------------- */
+  .rift-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  }
+
+  .scanlines::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.16;
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0 2px,
+      color-mix(in oklab, var(--rift-a) 60%, transparent) 2px 3px
+    );
+  }
+
+  /* --- HUD micro copy ------------------------------------------- */
+  .hud {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.625rem;
+    line-height: 1;
+    font-weight: 500;
+  }
+
+  /* --- World A: chamfered tech panel ---------------------------- */
+  .panel-tech {
+    position: relative;
+    clip-path: polygon(
+      var(--chamfer) 0,
+      100% 0,
+      100% calc(100% - var(--chamfer)),
+      calc(100% - var(--chamfer)) 100%,
+      0 100%,
+      0 var(--chamfer)
+    );
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--rift-a) 55%, transparent),
+      color-mix(in oklab, var(--rift-b) 35%, transparent) 55%,
+      color-mix(in oklab, var(--rift-a) 65%, transparent)
+    );
+    padding: 1px;
+  }
+  .panel-tech > * {
+    clip-path: inherit;
+    /* No backdrop-filter: dozens of live blurs cost more than they show. */
+    background-color: color-mix(in oklab, var(--card) 94%, var(--void));
+    height: 100%;
+    width: 100%;
+  }
+  .panel-tech--flush > * {
+    background-color: color-mix(in oklab, var(--card) 62%, transparent);
+  }
+  .panel-tech--opaque > * {
+    background-color: color-mix(in oklab, var(--card) 97%, transparent);
+  }
+
+  /* --- World B: engraved codex panel ---------------------------- */
+  .panel-codex {
+    position: relative;
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in oklab, var(--rift-a) 26%, transparent);
+    background:
+      radial-gradient(
+        120% 90% at 15% 0%,
+        color-mix(in oklab, var(--rift-a) 13%, transparent),
+        transparent 60%
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in oklab, var(--card) 92%, transparent),
+        color-mix(in oklab, var(--void) 82%, transparent)
+      );
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--rift-a) 10%, transparent),
+      inset 0 1px 0 color-mix(in oklab, var(--rift-a) 22%, transparent),
+      0 20px 60px -30px oklch(0 0 0 / 0.9);
+  }
+  .panel-codex::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border-radius: calc(var(--radius) - 4px);
+    border: 1px solid color-mix(in oklab, var(--rift-a) 14%, transparent);
+    pointer-events: none;
+  }
+
+  /* --- Type ------------------------------------------------------ */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 0.86;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  [data-world="enrico"] .display {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 0.95;
+  }
+  .chroma {
+    text-shadow:
+      0.018em 0 0 color-mix(in oklab, var(--rift-b) 70%, transparent),
+      -0.018em 0 0 color-mix(in oklab, var(--rift-a) 70%, transparent);
+  }
+  .seam-text {
+    background: linear-gradient(
+      100deg,
+      var(--rift-a),
+      var(--rift-c) 45%,
+      var(--rift-b)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* --- Hairline rules ------------------------------------------- */
+  .rule-gradient {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--rift-a) 70%, transparent),
+      transparent
+    );
+  }
+}
+
+@utility tap-none {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Every CSS animation inside a gated, off-screen scene stops running. */
+[data-art="paused"] * {
+  animation-play-state: paused !important;
+}
+
+/*
+ * Weak-device fallback. When the rift field's own frame timer reports that
+ * the page cannot hold a frame, the art scenes drop their many-small-node
+ * animations (blinking lamps, embers, swaying grass) and keep only the
+ * travelling energy, which costs a fraction of the paint work.
+ */
+html[data-perf="low"] [data-art] [style*="rift-led"],
+html[data-perf="low"] [data-art] [style*="rift-ember"],
+html[data-perf="low"] [data-art] [style*="rift-sway"],
+html[data-perf="low"] [data-art] [style*="rift-glyph"],
+html[data-perf="low"] .scanlines::before {
+  animation: none !important;
+}
+
+/*
+ * Skip rendering (and painting) for the heaviest off-screen block — the
+ * crossover carries a full art scene plus another world's whole palette.
+ * `auto` remembers its real height after the first render, so the estimate
+ * only matters for the very first paint.
+ */
+@utility defer-scene {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 960px;
+}
+
+@keyframes rift-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes rift-scan {
+  0% {
+    transform: translateY(-110%);
+  }
+  100% {
+    transform: translateY(410%);
+  }
+}
+@keyframes rift-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+@keyframes rift-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 400px 200px;
+  }
+}
+@keyframes rift-ember {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--drift-x, 14px), -120px, 0) scale(1.1);
+    opacity: 0;
+  }
+}
+@keyframes rift-dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+@keyframes rift-led {
+  0%,
+  100% {
+    opacity: 0.22;
+  }
+  35% {
+    opacity: 1;
+  }
+  52% {
+    opacity: 0.45;
+  }
+}
+@keyframes rift-sway {
+  0%,
+  100% {
+    transform: rotate(-1.1deg);
+  }
+  50% {
+    transform: rotate(1.1deg);
+  }
+}
+@keyframes rift-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rift-glyph {
+  0%,
+  100% {
+    opacity: 0.14;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+@keyframes rift-draw {
+  from {
+    stroke-dashoffset: var(--draw, 400);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

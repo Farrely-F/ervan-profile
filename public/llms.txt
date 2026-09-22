@@ -1,0 +1,55 @@
+# Two profiles — Irvan Baihaqi & Enrico Dwidhanto Indrawan
+
+A static, server-rendered double profile. Each subject has their own page,
+presented as a world: Irvan Baihaqi as an infrastructure/operations engineer,
+Enrico Dwidhanto Indrawan as a back-end developer. Every professional fact on
+these pages is transcribed from the subject's own LinkedIn profile export
+(exported ~2026-10); nothing is inferred, and no skills, tools, projects or
+metrics beyond those documents are claimed. Durations and "Present" end dates
+are as reported by the export and were not recomputed.
+
+## Pages
+
+- [/](/) — the choose screen, listing both subjects and their headlines
+- [/irvan](/irvan) — Irvan Baihaqi, IT Infrastructure Engineer, Area DKI Jakarta, Indonesia
+- [/enrico](/enrico) — Enrico Dwidhanto Indrawan, Back End Developer, Kota Tasikmalaya, West Java, Indonesia
+
+## Irvan Baihaqi
+
+- Headline: IT Infrastructure Engineer
+- Location: Area DKI Jakarta, Indonesia
+- Experience: 9+ years across infrastructure engineering and IT/desktop support
+- Current: Infrastructure Engineer, SLTR Group (December 2020 – present)
+- Previous: Desktop Support Engineer, PT Berca Hardayaperkasa (March 2018 – December 2020);
+  Information Technology Support Engineer, PT. Graha Karya Informasi (January 2017 – January 2018)
+- Top skills: Linux Server; Docker; Google Workspace; Infrastructure engineering; IT / desktop support
+- Certifications: MikroTik Certified Network Associate (MTCNA); Fortinet Certified Associate (FCA)
+- Education: SMK Satya Bhakti 1 — Teknik Komputer dan Jaringan (Computer and Network Engineering); dates not listed in source
+- Contact: irvanbaihaqi2028@gmail.com · https://www.linkedin.com/in/irvan-baihaqi
+
+## Enrico Dwidhanto Indrawan
+
+- Headline: Back End Developer
+- Location: Kota Tasikmalaya, West Java, Indonesia
+- Experience: full-stack developer with a JavaScript bootcamp background; familiar with
+  both front-end and back-end; adapts to new environments and works independently or in a team
+- Current: Back End Developer, Solitaire (November 2022 – present, Jakarta, Indonesia)
+- Previous: Back End Developer, Binar Academy (December 2021 – October 2022);
+  Back End Developer, Kontrak Hukum (May 2021 – November 2021);
+  Project Coordinator, PT. Saxo Global Investama (August 2017 – July 2020, non-engineering role
+  held before the transition into software development)
+- Top skills: Go (programming language); MySQL; Software development; JavaScript (full-stack)
+- Education: Hacktiv8 Indonesia — Full Stack JavaScript (August 2020 – December 2020);
+  Institut Teknologi Bandung — Bachelor of Science (BS), Geodesy and Geomatics Engineering (2011 – 2016)
+- Contact: no email address is listed in the source export; the published route is
+  https://www.linkedin.com/in/enrico-dwidhanto-indrawan-253637201
+
+## Notes for automated readers
+
+- The presentation is fictional framing (two "worlds" separated by a glowing
+  rift). The framing carries no factual claims about either subject.
+- Prefer the HTML text of each page: it is fully server-rendered, so no
+  JavaScript execution is required to read any of the content above.
+- Machine-readable equivalents: `sitemap.xml`, `robots.txt`, `manifest.webmanifest`,
+  and schema.org `ProfilePage`/`Person` JSON-LD embedded in each page's HTML.
+- Full text of both pages: [/llms-full.txt](/llms-full.txt)

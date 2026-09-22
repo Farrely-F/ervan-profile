@@ -1,0 +1,74 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 512 512"
+  width="512"
+  height="512"
+  role="img"
+  aria-label="Two profiles on either side of a rift"
+>
+  <defs>
+    <clipPath id="plate">
+      <rect x="0" y="0" width="512" height="512" rx="104" />
+    </clipPath>
+    <!-- seam runs from (141.6, 512) to (370.4, 0): 66° from horizontal -->
+    <clipPath id="sideA">
+      <polygon points="0,0 370.4,0 141.6,512 0,512" />
+    </clipPath>
+    <clipPath id="sideB">
+      <polygon points="370.4,0 512,0 512,512 141.6,512" />
+    </clipPath>
+    <radialGradient id="gridGlow" cx="0.3" cy="0.58" r="1.05">
+      <stop offset="0%" stop-color="#63f2ff" stop-opacity="1" />
+      <stop offset="38%" stop-color="#3aa8ff" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#0b1440" stop-opacity="0.15" />
+    </radialGradient>
+    <radialGradient id="riftGlowMagenta" cx="0.14" cy="0.92" r="0.7">
+      <stop offset="0%" stop-color="#ff3ea5" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#ff3ea5" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="marchGlow" cx="0.82" cy="0.4" r="0.95">
+      <stop offset="0%" stop-color="#ffd27a" stop-opacity="0.95" />
+      <stop offset="45%" stop-color="#43d68a" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#1c2a18" stop-opacity="0.2" />
+    </radialGradient>
+    <linearGradient id="seam" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff3ea5" />
+      <stop offset="42%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#ffcd6b" />
+    </linearGradient>
+  </defs>
+
+  <g clip-path="url(#plate)">
+    <rect width="512" height="512" fill="#05060f" />
+
+    <g clip-path="url(#sideA)">
+      <rect width="512" height="512" fill="url(#gridGlow)" />
+      <rect width="512" height="512" fill="url(#riftGlowMagenta)" />
+      <g stroke="#2fe6ff" stroke-opacity="0.35" stroke-width="3">
+        <path d="M-40 372 H552" />
+        <path d="M-40 440 H552" />
+        <path d="M-40 508 H552" />
+        <path d="M-40 304 H552" />
+        <path d="M120 380 V560" />
+        <path d="M232 380 V560" />
+        <path d="M344 380 V560" />
+      </g>
+      <rect x="76" y="212" width="150" height="112" fill="none" stroke="#2fe6ff" stroke-opacity="0.55" stroke-width="4" />
+      <rect x="104" y="240" width="94" height="56" fill="none" stroke="#2fe6ff" stroke-opacity="0.35" stroke-width="3" />
+      <circle cx="151" cy="268" r="13" fill="#86f2ff" />
+    </g>
+
+    <g clip-path="url(#sideB)">
+      <rect width="512" height="512" fill="url(#marchGlow)" />
+      <path d="M370 512 Q432 372 512 340 V512 Z" fill="#0f1a12" fill-opacity="0.85" />
+      <path d="M400 512 Q448 404 512 372" fill="none" stroke="#43d68a" stroke-opacity="0.5" stroke-width="4" />
+      <circle cx="418" cy="238" r="34" fill="#ffd27a" />
+      <path d="M392 340 Q430 300 468 340 Z" fill="#0f1a12" />
+    </g>
+
+    <path d="M141.6 512 L370.4 0" stroke="#2fe6ff" stroke-opacity="0.45" stroke-width="26" />
+    <path d="M141.6 512 L370.4 0" stroke="url(#seam)" stroke-width="9" />
+  </g>
+
+  <rect x="18" y="18" width="476" height="476" rx="88" fill="none" stroke="#8ad8ff" stroke-opacity="0.22" stroke-width="6" />
+</svg>

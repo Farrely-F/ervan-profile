@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# working files (LinkedIn PDF exports; docs/ holds the transcriptions)
+/tmp/
