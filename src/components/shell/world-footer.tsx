@@ -1,5 +1,6 @@
 import type { Profile } from "@/data/profiles";
 import { WorldLink } from "@/components/rift/rift-transition";
+import { Watermark } from "@/components/shell/watermark";
 import { ChapterRule } from "@/components/story/seam";
 
 /** The end of the story: who this is, and the way back to the choose screen. */
@@ -27,6 +28,7 @@ export function WorldFooter({ profile }: { profile: Profile }) {
           ← back to the start
         </WorldLink>
       </div>
+      <Watermark className="mt-10" />
     </footer>
   );
 }

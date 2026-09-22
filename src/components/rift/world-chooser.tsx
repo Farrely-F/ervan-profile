@@ -5,6 +5,7 @@ import { useMotionValue, useSpring } from "motion/react";
 import { cn } from "cn";
 import { PROFILES, type World } from "@/data/profiles";
 import { RiftCanvas } from "@/components/rift/rift-canvas";
+import { Watermark } from "@/components/shell/watermark";
 import { WorldLink } from "@/components/rift/rift-transition";
 import { SCENES, SIGILS } from "@/components/worlds/scene-registry";
 import { seamClips, seamTransform } from "@/lib/seam";
@@ -192,6 +193,7 @@ export function WorldChooser() {
           )}
         </span>
 
+        <Watermark className="pointer-events-auto" />
       </div>
     </main>
   );
